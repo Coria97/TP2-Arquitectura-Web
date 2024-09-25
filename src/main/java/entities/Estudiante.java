@@ -11,7 +11,7 @@ public class Estudiante {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id_estudiante;
+    private int id_estudiante;
 
     private String nombre;
     private String apellido;
@@ -42,8 +42,7 @@ public class Estudiante {
         this.nro_libreta_universitaria = nro_libreta_universitaria;
     }
 
-    public String getId_estudiante() {
-        return id_estudiante;
+    public int getId_estudiante() { return id_estudiante;
     }
 
     public String getNombre() {
