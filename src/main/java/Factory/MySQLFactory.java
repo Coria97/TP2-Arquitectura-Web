@@ -14,17 +14,17 @@ public class MySQLFactory extends FactoryRepository{
     public MySQLFactory(){}
 
     @Override
-    public CarreraRepository getCarreraRepositorio() {
+    public CarreraRepository getCarreraRepository() {
         return new CarreraRepository(emf);
     }
 
     @Override
-    public EstudianteRepository getEstudianteRepositorio() {
+    public EstudianteRepository getEstudianteRepository() {
         return new EstudianteRepository(emf);
     }
 
     @Override
-    public EstudianteCarreraRepository getEstudianteCarreraRepositorio() {
+    public EstudianteCarreraRepository getEstudianteCarreraRepository() {
         return new EstudianteCarreraRepository(emf);
     }
 }

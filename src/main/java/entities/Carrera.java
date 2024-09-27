@@ -15,7 +15,7 @@ public class Carrera {
 
     private String area;
 
-    private int duracion;
+    private Integer duracion;
 
     @OneToMany(mappedBy = "carrera")
     private Set<EstudianteCarrera> estudiantes = new HashSet<>();
@@ -23,11 +23,13 @@ public class Carrera {
     // Metodos
     public Carrera() { }
 
-    public Carrera(String nombre, String area, int duracion) {
+    public Carrera(String nombre, String area, Integer duracion) {
         this.nombre = nombre;
         this.area = area;
         this.duracion = duracion;
     }
+
+    public Integer getId() { return this.id_carrera; }
 
     public Set<EstudianteCarrera> getEstudiantes() {
         return estudiantes;
@@ -37,7 +39,7 @@ public class Carrera {
         return nombre;
     }
 
-    public int getDuracion() {
+    public Integer getDuracion() {
         return duracion;
     }
 

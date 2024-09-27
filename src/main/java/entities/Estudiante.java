@@ -44,6 +44,8 @@ public class Estudiante {
         this.nro_libreta_universitaria = nro_libreta_universitaria;
     }
 
+    public Integer getId() { return this.id_estudiante; }
+
     public String getNombre() {
         return nombre;
     }
@@ -84,11 +86,11 @@ public class Estudiante {
         this.genero = genero;
     }
 
-    public int getNro_documento() {
+    public int getNroDocumento() {
         return nro_documento;
     }
 
-    public void setNro_documento(int nro_documento) {
+    public void setNroDocumento(int nro_documento) {
         this.nro_documento = nro_documento;
     }
 

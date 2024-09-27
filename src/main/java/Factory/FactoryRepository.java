@@ -8,9 +8,9 @@ public abstract class FactoryRepository {
 
     public static final int MYSQL = 1;
 
-    public abstract CarreraRepository getCarreraRepositorio();
-    public abstract EstudianteRepository getEstudianteRepositorio();
-    public abstract EstudianteCarreraRepository getEstudianteCarreraRepositorio();
+    public abstract CarreraRepository getCarreraRepository();
+    public abstract EstudianteRepository getEstudianteRepository();
+    public abstract EstudianteCarreraRepository getEstudianteCarreraRepository();
 
     public static FactoryRepository getFactory(int whichFactory) {
         switch (whichFactory) {

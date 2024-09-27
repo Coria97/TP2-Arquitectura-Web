@@ -24,7 +24,15 @@ public class EstudianteCarrera {
     private boolean graduado;
 
     // Metodos
+    public EstudianteCarrera() {}
 
+    public EstudianteCarrera(Estudiante estudiante, Carrera carrera, Date antiguedad, Boolean graduado) {
+        this.id = new EstudianteCarreraPK(estudiante.getId(), carrera.getId());
+        this.estudiante = estudiante;
+        this.carrera = carrera;
+        this.antiguedad = antiguedad;
+        this.graduado = graduado;
+    }
     public Estudiante getEstudiante() {
         return estudiante;
     }
