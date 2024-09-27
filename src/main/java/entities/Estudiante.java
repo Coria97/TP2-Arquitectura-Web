@@ -8,31 +8,33 @@ import java.util.Set;
 
 @Entity
 public class Estudiante {
-
+    // Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id_estudiante;
-
-    private String nombre;
-    private String apellido;
+    private Integer id_estudiante;
 
     @OneToMany(mappedBy = "estudiante")
-    private Set<EstudianteCarrera> setEstudiante = new HashSet<>();
+    private Set<EstudianteCarrera> carreras = new HashSet<>();
 
     @Column(name = "ciudad_residencia")
     private String ciudad;
-    private int edad;
+
+    private String nombre;
+
+    private String apellido;
+
+    private Integer edad;
 
     private char genero;
-    private int nro_documento;
-    private int nro_libreta_universitaria;
 
+    private Integer nro_documento;
 
-    public Estudiante() {
+    private Integer nro_libreta_universitaria;
 
-    }
+    // Metodos
+    public Estudiante() { }
 
-    public Estudiante(String nombre, String apellido, String ciudad, int edad, char genero, int nro_documento, int nro_libreta_universitaria) {
+    public Estudiante(String nombre, String apellido, String ciudad, Integer edad, char genero, Integer nro_documento, Integer nro_libreta_universitaria) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.ciudad = ciudad;
@@ -40,9 +42,6 @@ public class Estudiante {
         this.genero = genero;
         this.nro_documento = nro_documento;
         this.nro_libreta_universitaria = nro_libreta_universitaria;
-    }
-
-    public int getId_estudiante() { return id_estudiante;
     }
 
     public String getNombre() {
@@ -101,8 +100,8 @@ public class Estudiante {
         this.nro_libreta_universitaria = nro_libreta_universitaria;
     }
 
-    public Set<EstudianteCarrera> getSetEstudiante() {
-        return setEstudiante;
+    public Set<EstudianteCarrera> getCarreras() {
+        return carreras;
     }
 
 }

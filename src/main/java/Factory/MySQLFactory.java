@@ -10,6 +10,9 @@ import javax.persistence.Persistence;
 public class MySQLFactory extends FactoryRepository{
 
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("tp2-integrador");
+
+    public MySQLFactory(){}
+
     @Override
     public CarreraRepository getCarreraRepositorio() {
         return new CarreraRepository(emf);

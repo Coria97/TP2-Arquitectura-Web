@@ -3,7 +3,7 @@ package Repository;
 import java.util.List;
 public interface GenericRepository<T> {
 
-    public T findById(int id);
+    public T findById(Integer id);
     public List<T> findAll();
     public void create(T t);
     public void delete(T t);

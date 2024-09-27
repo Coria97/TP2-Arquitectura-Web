@@ -6,22 +6,22 @@ import java.util.Set;
 
 @Entity
 public class Carrera {
-
+    // Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id_carrera;
+    private Integer id_carrera;
 
     private String nombre;
+
     private String area;
 
     private int duracion;
+
     @OneToMany(mappedBy = "carrera")
-    private Set<EstudianteCarrera> setCarrera = new HashSet<>();
+    private Set<EstudianteCarrera> estudiantes = new HashSet<>();
 
-
-    public Carrera() {
-
-    }
+    // Metodos
+    public Carrera() { }
 
     public Carrera(String nombre, String area, int duracion) {
         this.nombre = nombre;
@@ -29,34 +29,28 @@ public class Carrera {
         this.duracion = duracion;
     }
 
-
-    public Set<EstudianteCarrera> getSetCarrera() {
-        return setCarrera;
-    }
-
-
-    public int getId_carrera() {
-        return id_carrera;
+    public Set<EstudianteCarrera> getEstudiantes() {
+        return estudiantes;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public int getDuracion() {
+        return duracion;
     }
 
     public String getArea() {
         return area;
     }
 
-    public void setArea(String area) {
-        this.area = area;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public int getDuracion() {
-        return duracion;
+    public void setArea(String area) {
+        this.area = area;
     }
 
     public void setDuracion(int duracion) {

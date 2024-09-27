@@ -5,25 +5,25 @@ import java.util.Date;
 
 @Entity
 public class EstudianteCarrera {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id_estudiante_carrera;
+    // Atributos
+    @EmbeddedId
+    private EstudianteCarreraPK id;
 
     @ManyToOne
+    @MapsId("idCarrera")
     @JoinColumn(name = "id_carrera")
     private Carrera carrera;
 
     @ManyToOne
+    @MapsId("idEstudiante")
     @JoinColumn(name = "id_estudiante")
     private Estudiante estudiante;
 
     private Date antiguedad;
+
     private boolean graduado;
 
-    public int getId_estudiante_carrera() {
-        return id_estudiante_carrera;
-    }
+    // Metodos
 
     public Estudiante getEstudiante() {
         return estudiante;
