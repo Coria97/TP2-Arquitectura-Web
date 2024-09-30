@@ -1,6 +1,7 @@
 package entities;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -27,25 +28,28 @@ public class EstudianteCarrera {
     @JoinColumn(name = "id_estudiante")
     private Estudiante estudiante;
 
-    private Date antiguedad;
+    private LocalDate fecha_inscripcion;
 
-    private boolean graduado;
+    private Date fecha_graduacion;
+
+    //date fecha inscripcion y graduacion
+    //fecha inscrip tome la fecha
 
     // Metodos
     public EstudianteCarrera() {}
 
-    public EstudianteCarrera(Estudiante estudiante, Carrera carrera, Date antiguedad, Boolean graduado) {
+    public EstudianteCarrera(Estudiante estudiante, Carrera carrera) {
         this.id = new EstudianteCarreraPK(estudiante.getId(), carrera.getId());
         this.estudiante = estudiante;
         this.carrera = carrera;
-        this.antiguedad = antiguedad;
-        this.graduado = graduado;
+        this.fecha_inscripcion = LocalDate.now();
+        this.fecha_graduacion = null;
     }
 
-    public EstudianteCarrera(EstudianteCarreraPK id, Date antiguedad, Boolean graduado) {
+    public EstudianteCarrera(EstudianteCarreraPK id, LocalDate fecha_inscripcion, Date fecha_graduacion) {
         this.id = id;
-        this.antiguedad = antiguedad;
-        this.graduado = graduado;
+        this.fecha_inscripcion = fecha_inscripcion;
+        this.fecha_graduacion = fecha_graduacion;
     }
 
     public Estudiante getEstudiante() {

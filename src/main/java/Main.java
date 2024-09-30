@@ -25,14 +25,16 @@ public class Main {
         Carrera carrera = new Carrera("Tudai", "Tecnologia", 2);
 
         carreraRepository.create(carrera);
-        EstudianteCarreraPK pkEstudianteCarrera = new EstudianteCarreraPK(estudiante.getId(), carrera.getId());
-        EstudianteCarrera estudianteCarrera = new EstudianteCarrera(pkEstudianteCarrera, new Date(2024,9,27), false);
 
-        Carrera carreraFromDB = carreraRepository.findById(carrera.getId());
+        //aca se deberia buscar por algo unico de carrera y estudainte
+       // EstudianteCarrera estudianteCarrera = new EstudianteCarrera(pkEstudianteCarrera, new Date(2024,9,27), false);
+
+     /*   Carrera carreraFromDB = carreraRepository.findById(carrera.getId());
+
         Estudiante estudianteFromDB = estudianteRepository.findById(estudiante.getId());
         estudianteCarrera.setCarrera(carreraFromDB);
         estudianteCarrera.setEstudiante(estudianteFromDB);
-        estudianteCarreraRepository.create(estudianteCarrera);
+        estudianteCarreraRepository.create(estudianteCarrera);*/
 
     }
 }
