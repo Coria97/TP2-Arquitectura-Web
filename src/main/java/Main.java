@@ -6,6 +6,8 @@ import Repository.EstudianteRepository;
 import entities.Carrera;
 import entities.Estudiante;
 import entities.EstudianteCarrera;
+import entities.EstudianteCarreraPK;
+
 import java.sql.Date;
 
 public class Main {
@@ -21,11 +23,15 @@ public class Main {
 
         // 2 - b
         Carrera carrera = new Carrera("Tudai", "Tecnologia", 2);
-        carreraRepository.create(carrera);
 
-        Estudiante estudiante1 = estudianteRepository.findById(6);
-        Carrera carrera1 = carreraRepository.findById(7);
-        EstudianteCarrera estudianteCarrera = new EstudianteCarrera(estudiante1, carrera1, new Date(2024,9,27), false);
+        carreraRepository.create(carrera);
+        EstudianteCarreraPK pkEstudianteCarrera = new EstudianteCarreraPK(estudiante.getId(), carrera.getId());
+        EstudianteCarrera estudianteCarrera = new EstudianteCarrera(pkEstudianteCarrera, new Date(2024,9,27), false);
+
+        Carrera carreraFromDB = carreraRepository.findById(carrera.getId());
+        Estudiante estudianteFromDB = estudianteRepository.findById(estudiante.getId());
+        estudianteCarrera.setCarrera(carreraFromDB);
+        estudianteCarrera.setEstudiante(estudianteFromDB);
         estudianteCarreraRepository.create(estudianteCarrera);
 
     }

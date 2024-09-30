@@ -17,7 +17,7 @@ public class Carrera {
 
     private Integer duracion;
 
-    @OneToMany(mappedBy = "carrera")
+    @OneToMany(mappedBy = "carrera", fetch = FetchType.LAZY)
     private Set<EstudianteCarrera> estudiantes = new HashSet<>();
 
     // Metodos

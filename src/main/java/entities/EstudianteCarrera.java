@@ -14,6 +14,14 @@ public class EstudianteCarrera {
     @JoinColumn(name = "id_carrera")
     private Carrera carrera;
 
+    public void setCarrera(Carrera carrera) {
+        this.carrera = carrera;
+    }
+
+    public void setEstudiante(Estudiante estudiante) {
+        this.estudiante = estudiante;
+    }
+
     @ManyToOne
     @MapsId("idEstudiante")
     @JoinColumn(name = "id_estudiante")
@@ -33,6 +41,13 @@ public class EstudianteCarrera {
         this.antiguedad = antiguedad;
         this.graduado = graduado;
     }
+
+    public EstudianteCarrera(EstudianteCarreraPK id, Date antiguedad, Boolean graduado) {
+        this.id = id;
+        this.antiguedad = antiguedad;
+        this.graduado = graduado;
+    }
+
     public Estudiante getEstudiante() {
         return estudiante;
     }

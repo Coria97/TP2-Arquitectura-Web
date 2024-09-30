@@ -13,7 +13,7 @@ public class Estudiante {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id_estudiante;
 
-    @OneToMany(mappedBy = "estudiante")
+    @OneToMany(mappedBy = "estudiante", fetch = FetchType.LAZY)
     private Set<EstudianteCarrera> carreras = new HashSet<>();
 
     @Column(name = "ciudad_residencia")
