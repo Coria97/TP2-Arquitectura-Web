@@ -30,7 +30,7 @@ public class EstudianteCarrera {
 
     private LocalDate fecha_inscripcion;
 
-    private Date fecha_graduacion;
+    private LocalDate fecha_graduacion;
 
     //date fecha inscripcion y graduacion
     //fecha inscrip tome la fecha
@@ -46,12 +46,6 @@ public class EstudianteCarrera {
         this.fecha_graduacion = null;
     }
 
-    public EstudianteCarrera(EstudianteCarreraPK id, LocalDate fecha_inscripcion, Date fecha_graduacion) {
-        this.id = id;
-        this.fecha_inscripcion = fecha_inscripcion;
-        this.fecha_graduacion = fecha_graduacion;
-    }
-
     public Estudiante getEstudiante() {
         return estudiante;
     }
@@ -60,11 +54,4 @@ public class EstudianteCarrera {
         return carrera;
     }
 
-    public Date getAntiguedad() {
-        return antiguedad;
-    }
-
-    public boolean isGraduado() {
-        return graduado;
-    }
 }

@@ -8,9 +8,10 @@ import java.util.Set;
 public class Carrera {
     // Atributos
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_carrera;
 
+    @Column(unique = true)
     private String nombre;
 
     private String area;

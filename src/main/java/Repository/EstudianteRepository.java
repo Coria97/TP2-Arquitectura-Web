@@ -10,5 +10,4 @@ public class EstudianteRepository extends BaseJPARepository<Estudiante> {
     public EstudianteRepository(EntityManagerFactory emf){
         super(emf, Estudiante.class);
     }
-
 }

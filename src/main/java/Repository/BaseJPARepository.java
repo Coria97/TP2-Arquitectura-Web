@@ -1,5 +1,7 @@
 package Repository;
 
+import entities.EstudianteCarrera;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.util.List;
@@ -28,11 +30,21 @@ public class BaseJPARepository<T> implements GenericRepository<T> {
                 .getResultList();
     }
 
+    public List<T> getAllSortedByParam(String param, String order) {
+        String queryString = "SELECT e FROM " + entityClass.getSimpleName() + " e ORDER BY e." + param + " " + order;
+        return getEntityManager().createQuery(queryString, entityClass)
+                .getResultList();
+    }
+
     @Override
     public void create(T entity) {
         EntityManager em = getEntityManager();
         em.getTransaction().begin();
-        em.persist(entity);
+        if (!(entity instanceof EstudianteCarrera)) {
+            em.persist(entity);
+        } else {
+            em.merge(entity);
+        }
         em.getTransaction().commit();
     }
 

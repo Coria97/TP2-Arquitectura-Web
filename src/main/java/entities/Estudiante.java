@@ -10,7 +10,7 @@ import java.util.Set;
 public class Estudiante {
     // Atributos
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_estudiante;
 
     @OneToMany(mappedBy = "estudiante", fetch = FetchType.LAZY)
@@ -29,6 +29,7 @@ public class Estudiante {
 
     private Integer nro_documento;
 
+    @Column(unique = true)
     private Integer nro_libreta_universitaria;
 
     // Metodos

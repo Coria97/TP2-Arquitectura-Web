@@ -9,32 +9,37 @@ import entities.EstudianteCarrera;
 import entities.EstudianteCarreraPK;
 
 import java.sql.Date;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
         FactoryRepository dbManager = new MySQLFactory();
         EstudianteRepository estudianteRepository = dbManager.getEstudianteRepository();
-        CarreraRepository carreraRepository = dbManager.getCarreraRepository();
+
         EstudianteCarreraRepository estudianteCarreraRepository = dbManager.getEstudianteCarreraRepository();
 
+        CarreraRepository carreraRepository = dbManager.getCarreraRepository();
+        Carrera carrera = new Carrera("Tudai", "Tecnologia", 2);
+        carreraRepository.create(carrera);
+
         // 2 - a
-        Estudiante estudiante = new Estudiante("Fabricio", "Trolardium", "Tandil", 32, 'X', 1122334455, 1122334455);
+        Estudiante estudiante = new Estudiante("Martin", "Palermo", "Tandil", 32, 'X', 123456789, 123456);
         estudianteRepository.create(estudiante);
 
         // 2 - b
-        Carrera carrera = new Carrera("Tudai", "Tecnologia", 2);
+        // To Do: hacer metodos para buscar por libreta y nombre de carrera
+        Carrera carreraFromDB = carreraRepository.findById(1);
+        Estudiante estudianteFromDB = estudianteRepository.findById(1);
+        EstudianteCarrera estudianteCarrera = new EstudianteCarrera(estudianteFromDB,carreraFromDB);
+        estudianteCarreraRepository.create(estudianteCarrera);
 
-        carreraRepository.create(carrera);
-
-        //aca se deberia buscar por algo unico de carrera y estudainte
-       // EstudianteCarrera estudianteCarrera = new EstudianteCarrera(pkEstudianteCarrera, new Date(2024,9,27), false);
-
-     /*   Carrera carreraFromDB = carreraRepository.findById(carrera.getId());
-
-        Estudiante estudianteFromDB = estudianteRepository.findById(estudiante.getId());
-        estudianteCarrera.setCarrera(carreraFromDB);
-        estudianteCarrera.setEstudiante(estudianteFromDB);
-        estudianteCarreraRepository.create(estudianteCarrera);*/
+        // 2 - c
+        Estudiante estudiante2 = new Estudiante("Jose", "Perez", "Tandil", 50, 'M', 123456789, 123466);
+        estudianteRepository.create(estudiante2);
+        Estudiante estudiante3 = new Estudiante("Clemente", "Rodriguez", "Tandil", 43, 'X', 123456789, 123656);
+        estudianteRepository.create(estudiante3);
+        List<Estudiante> estudianteList = estudianteRepository.getAllSortedByParam("edad","asc");
+        estudianteList.forEach(System.out::println);
 
     }
 }
