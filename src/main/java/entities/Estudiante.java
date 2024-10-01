@@ -107,4 +107,17 @@ public class Estudiante {
         return carreras;
     }
 
+    @Override
+    public String toString() {
+        return "Estudiante{" +
+                "ciudad='" + ciudad + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", edad=" + edad +
+                ", genero=" + genero +
+                ", nro_documento=" + nro_documento +
+                ", nro_libreta_universitaria=" + nro_libreta_universitaria +
+                ", id_estudiante=" + id_estudiante +
+                '}';
+    }
 }
