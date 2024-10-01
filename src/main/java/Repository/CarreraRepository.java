@@ -33,7 +33,7 @@ public class CarreraRepository extends BaseJPARepository<Carrera> {
         List<Object[]> resultados = super.getEntityManager().createNativeQuery(
                         "select c.id_carrera, c.nombre, ec.anio, ec.cant_inscriptos, ec.cant_recibidos " +
                                 "from Carrera c " +
-                                "join ( " +
+                                "left join ( " +
                                 "    select ec.id_carrera, " +
                                 "           count(ec.id_carrera) as cant_inscriptos, " +
                                 "           0 as cant_recibidos, " +
@@ -55,9 +55,9 @@ public class CarreraRepository extends BaseJPARepository<Carrera> {
         for (Object[] fila : resultados) {
             Integer idCarrera = ((Number) fila[0]).intValue();
             String nombreCarrera = (String) fila[1];
-            int anio = ((Number) fila[2]).intValue();
-            int cantInscriptos = ((Number) fila[3]).intValue();
-            int cantRecibidos = ((Number) fila[4]).intValue();
+            int anio = fila[2] != null ? ((Number) fila[2]).intValue() : -1;
+            int cantInscriptos = fila[3] != null ? ((Number) fila[3]).intValue() : 0;
+            int cantRecibidos = fila[4] != null ? ((Number) fila[4]).intValue() : 0;
 
             reportes.add(new ReportDTO(idCarrera, nombreCarrera, anio, cantInscriptos, cantRecibidos));
         }
