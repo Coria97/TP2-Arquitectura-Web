@@ -1,3 +1,5 @@
+import DTO.CarreraConInscriptosDTO;
+import DTO.ReportDTO;
 import Factory.FactoryRepository;
 import Factory.MySQLFactory;
 import Repository.CarreraRepository;
@@ -52,6 +54,21 @@ public class Main {
         System.out.println("-------EJ 2E--------");
         List<Estudiante> estudianteListByGenre = estudianteRepository.getAllEstudiantesByGenre('X');
         estudianteListByGenre.forEach(System.out::println);
+
+        // 2 - f
+        System.out.println("-------EJ 2F--------");
+        List<CarreraConInscriptosDTO> carrera_inscriptos = carreraRepository.getCarrerasConInscriptos();
+        carrera_inscriptos.forEach(System.out::println);
+
+        //2 - g
+        System.out.println("-------EJ 2G--------");
+        List<Estudiante> estudiantesListByCarrerAndCiudad = estudianteRepository.getEstudiantesByCarreraAndCiudad("TUDAI","Tandil");
+        estudiantesListByCarrerAndCiudad.forEach(System.out::println);
+
+        //3
+        System.out.println("-------EJ 3---------");
+        List<ReportDTO> reporte = carreraRepository.getInforme();
+        reporte.forEach(System.out::println);
 
     }
 }

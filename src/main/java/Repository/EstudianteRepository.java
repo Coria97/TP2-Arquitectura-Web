@@ -22,4 +22,19 @@ public class EstudianteRepository extends BaseJPARepository<Estudiante> {
                 .setParameter("genero", genero)
                 .getResultList();
     }
+
+    public List<Estudiante> getEstudiantesByCarreraAndCiudad(String nombreCarrera, String ciudad) {
+        return super.getEntityManager().createQuery(
+                        "SELECT e " +
+                                "FROM Estudiante e " +
+                                "WHERE e.ciudad = :ciudad " +
+                                "AND e.id IN (SELECT ec.estudiante.id " +
+                                "             FROM EstudianteCarrera ec " +
+                                "             JOIN ec.carrera c " +
+                                "             WHERE c.nombre = :nombreCarrera)", Estudiante.class)
+                .setParameter("nombreCarrera", nombreCarrera)
+                .setParameter("ciudad", ciudad)
+                .getResultList();
+    }
+
 }
