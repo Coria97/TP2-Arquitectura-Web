@@ -1,36 +1,39 @@
 package Repository;
 
-import DTO.CarreraConInscriptosDTO;
+import DTO.CareerWithEnrolledStudentsDTO;
 import DTO.ReportDTO;
-import entities.Carrera;
+import entities.Career;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManagerFactory;
 
-public class CarreraRepository extends BaseJPARepository<Carrera> {
+public class CareerRepository extends BaseJPARepository<Career> {
     private EntityManagerFactory emf;
 
-    public CarreraRepository(EntityManagerFactory emf) {
-        super(emf, Carrera.class);
+    public CareerRepository(EntityManagerFactory emf) {
+        super(emf, Career.class);
     }
 
-
-    public List<CarreraConInscriptosDTO> getCarrerasConInscriptos() {
+    public Career getCareerByName(String name) {
+        return super.getEntityManager().createQuery("SELECT c FROM Career c WHERE c.name = :name", Career.class)
+                .setParameter("name", name)
+                .getSingleResult();
+    }
+    public List<CareerWithEnrolledStudentsDTO> getCareerWithEnrolledStudents() {
         return super.getEntityManager().createQuery(
-                "SELECT new DTO.CarreraConInscriptosDTO(c.id, c.nombre, COUNT(ec)) " +
-                        "FROM Carrera c " +
-                        "JOIN EstudianteCarrera ec ON ec.carrera.id = c.id " +
-                        "GROUP BY c.id, c.nombre " +
+                "SELECT new DTO.CareerWithEnrolledStudentsDTO(c.idCareer, c.name, COUNT(ec)) " +
+                        "FROM Career c " +
+                        "JOIN StudentCareer ec ON ec.career.id = c.idCareer " +
+                        "GROUP BY c.idCareer, c.name " +
                         "HAVING COUNT(ec) > 0 " +
                         "ORDER BY COUNT(ec) DESC",
-                CarreraConInscriptosDTO.class).getResultList();
+                CareerWithEnrolledStudentsDTO.class).getResultList();
     }
 
-    public List<ReportDTO> getInforme() {
-
-        List<Object[]> resultados = super.getEntityManager().createNativeQuery(
+    public List<ReportDTO> getReports() {
+        List<Object[]> queryResults = super.getEntityManager().createNativeQuery(
                         "select c.id_carrera, c.nombre, ec.anio, ec.cant_inscriptos, ec.cant_recibidos " +
                                 "from Carrera c " +
                                 "left join ( " +
@@ -50,19 +53,19 @@ public class CarreraRepository extends BaseJPARepository<Carrera> {
                                 ") ec on ec.id_carrera = c.id_carrera " +
                                 "order by c.nombre, ec.anio").getResultList();
 
-        List<ReportDTO> reportes = new ArrayList<>();
+        List<ReportDTO> reports = new ArrayList<>();
 
-        for (Object[] fila : resultados) {
-            Integer idCarrera = ((Number) fila[0]).intValue();
-            String nombreCarrera = (String) fila[1];
-            int anio = fila[2] != null ? ((Number) fila[2]).intValue() : -1;
-            int cantInscriptos = fila[3] != null ? ((Number) fila[3]).intValue() : 0;
-            int cantRecibidos = fila[4] != null ? ((Number) fila[4]).intValue() : 0;
+        for (Object[] fila : queryResults) {
+            Integer idCareer = ((Number) fila[0]).intValue();
+            String nameCareer = (String) fila[1];
+            int year = fila[2] != null ? ((Number) fila[2]).intValue() : -1;
+            int amountInscription = fila[3] != null ? ((Number) fila[3]).intValue() : 0;
+            int amountGraduates = fila[4] != null ? ((Number) fila[4]).intValue() : 0;
 
-            reportes.add(new ReportDTO(idCarrera, nombreCarrera, anio, cantInscriptos, cantRecibidos));
+            reports.add(new ReportDTO(idCareer, nameCareer, year, amountInscription, amountGraduates));
         }
 
-        return reportes;
+        return reports;
     }
 
 

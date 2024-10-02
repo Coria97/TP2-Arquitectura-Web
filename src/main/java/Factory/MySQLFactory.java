@@ -1,8 +1,8 @@
 package Factory;
 
-import Repository.CarreraRepository;
-import Repository.EstudianteCarreraRepository;
-import Repository.EstudianteRepository;
+import Repository.CareerRepository;
+import Repository.StudentCareerRepository;
+import Repository.StudentRepository;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -14,17 +14,17 @@ public class MySQLFactory extends FactoryRepository{
     public MySQLFactory(){}
 
     @Override
-    public CarreraRepository getCarreraRepository() {
-        return new CarreraRepository(emf);
+    public CareerRepository getCareerRepository() {
+        return new CareerRepository(emf);
     }
 
     @Override
-    public EstudianteRepository getEstudianteRepository() {
-        return new EstudianteRepository(emf);
+    public StudentRepository getStudentRepository() {
+        return new StudentRepository(emf);
     }
 
     @Override
-    public EstudianteCarreraRepository getEstudianteCarreraRepository() {
-        return new EstudianteCarreraRepository(emf);
+    public StudentCareerRepository getStudentCareerRepository() {
+        return new StudentCareerRepository(emf);
     }
 }

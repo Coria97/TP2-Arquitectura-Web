@@ -1,6 +1,6 @@
 package Repository;
 
-import entities.EstudianteCarrera;
+import entities.StudentCareer;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -20,27 +20,10 @@ public class BaseJPARepository<T> implements GenericRepository<T> {
     }
 
     @Override
-    public T findById(Integer id) {
-        return getEntityManager().find(entityClass, id);
-    }
-
-    @Override
-    public List<T> findAll() {
-        return getEntityManager().createQuery("SELECT e FROM " + entityClass.getSimpleName() + " e", entityClass)
-                .getResultList();
-    }
-
-    public List<T> getAllSortedByParam(String param, String order) {
-        String queryString = "SELECT e FROM " + entityClass.getSimpleName() + " e ORDER BY e." + param + " " + order;
-        return getEntityManager().createQuery(queryString, entityClass)
-                .getResultList();
-    }
-
-    @Override
     public void create(T entity) {
         EntityManager em = getEntityManager();
         em.getTransaction().begin();
-        if (!(entity instanceof EstudianteCarrera)) {
+        if (!(entity instanceof StudentCareer)) {
             em.persist(entity);
         } else {
             em.merge(entity);
@@ -62,5 +45,22 @@ public class BaseJPARepository<T> implements GenericRepository<T> {
         em.getTransaction().begin();
         em.merge(entity);
         em.getTransaction().commit();
+    }
+
+    @Override
+    public T findById(Integer id) {
+        return getEntityManager().find(entityClass, id);
+    }
+
+    @Override
+    public List<T> findAll() {
+        return getEntityManager().createQuery("SELECT e FROM " + entityClass.getSimpleName() + " e", entityClass)
+                .getResultList();
+    }
+
+    public List<T> getAllSortedByParam(String param, String order) {
+        String queryString = "SELECT e FROM " + entityClass.getSimpleName() + " e ORDER BY e." + param + " " + order;
+        return getEntityManager().createQuery(queryString, entityClass)
+                .getResultList();
     }
 }

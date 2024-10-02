@@ -1,74 +1,103 @@
-import DTO.CarreraConInscriptosDTO;
+import DTO.CareerWithEnrolledStudentsDTO;
 import DTO.ReportDTO;
 import Factory.FactoryRepository;
 import Factory.MySQLFactory;
-import Repository.CarreraRepository;
-import Repository.EstudianteCarreraRepository;
-import Repository.EstudianteRepository;
-import entities.Carrera;
-import entities.Estudiante;
-import entities.EstudianteCarrera;
-import entities.EstudianteCarreraPK;
+import Repository.CareerRepository;
+import Repository.StudentCareerRepository;
+import Repository.StudentRepository;
+import entities.Career;
+import entities.Student;
+import entities.StudentCareer;
 
-import java.sql.Date;
-import java.util.Arrays;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
         FactoryRepository dbManager = new MySQLFactory();
-        EstudianteRepository estudianteRepository = dbManager.getEstudianteRepository();
 
-        EstudianteCarreraRepository estudianteCarreraRepository = dbManager.getEstudianteCarreraRepository();
+        StudentRepository studentRepository = dbManager.getStudentRepository();
+        StudentCareerRepository studentCareerRepository = dbManager.getStudentCareerRepository();
+        CareerRepository careerRepository = dbManager.getCareerRepository();
 
-        CarreraRepository carreraRepository = dbManager.getCarreraRepository();
-        //Carrera carrera = new Carrera("Tudai", "Tecnologia", 2);
-        //carreraRepository.create(carrera);
+        Career career1 = new Career("Tudai", "Tecnologia", 2);
+        Career career2 = new Career("Profesorado", "Matematicas", 4);
+        Career career3 = new Career("Sociales", "Humanas", 4);
+        careerRepository.create(career1);
+        careerRepository.create(career2);
+        careerRepository.create(career3);
+
+        Student student1 = new Student("Jose", "Perez", "Tandil", 20, 'M', 40402289, 10001);
+        Student student2 = new Student("Clemente", "Rodriguez", "Ayacucho", 23, 'M', 40402278, 10002);
+        Student student3 = new Student("Valentina", "Pala", "Balcarce", 21, 'F', 40402288, 10003);
+        Student student4 = new Student("Lautaro", "Migueles", "Benito Juarez", 19, 'M', 40402290, 10004);
+        studentRepository.create(student1);
+        studentRepository.create(student2);
+        studentRepository.create(student3);
+        studentRepository.create(student4);
+
+        Career careerTudai = careerRepository.getCareerByName("Tudai");
+        Career careerProfesorado = careerRepository.getCareerByName("Profesorado");
+        Career careerSociales = careerRepository.getCareerByName("Sociales");
+
+        Student student1FromDB = studentRepository.findByStudentNumber(10001);
+        Student student2FromDB = studentRepository.findByStudentNumber(10002);
+        Student student3FromDB = studentRepository.findByStudentNumber(10003);
+        Student student4FromDB = studentRepository.findByStudentNumber(10004);
+
+        StudentCareer studentCareer1 = new StudentCareer(student1FromDB, careerTudai);
+        StudentCareer studentCareer2 = new StudentCareer(student1FromDB, careerProfesorado);
+        StudentCareer studentCareer3 = new StudentCareer(student2FromDB, careerTudai);
+        StudentCareer studentCareer4 = new StudentCareer(student1FromDB, careerSociales);
+        StudentCareer studentCareer5 = new StudentCareer(student4FromDB, careerProfesorado);
+        StudentCareer studentCareer6 = new StudentCareer(student3FromDB, careerTudai);
+        studentCareerRepository.create(studentCareer1);
+        studentCareerRepository.create(studentCareer2);
+        studentCareerRepository.create(studentCareer3);
+        studentCareerRepository.create(studentCareer4);
+        studentCareerRepository.create(studentCareer5);
+        studentCareerRepository.create(studentCareer6);
 
         // 2 - a
-        Estudiante estudiante = new Estudiante("Martin", "Palermo", "Tandil", 32, 'X', 123456789, 123456);
-        //estudianteRepository.create(estudiante);
+        System.out.println("-------EJ 2A--------");
+        Student student2A = new Student("Agustina", "Schiavi", "Mar Del Plata", 19, 'M', 40402291, 10005);
+        studentRepository.create(student2A);
 
         // 2 - b
-        // To Do: hacer metodos para buscar por libreta y nombre de carrera
-        Carrera carreraFromDB = carreraRepository.findById(1);
-        Estudiante estudianteFromDB = estudianteRepository.findById(1);
-        EstudianteCarrera estudianteCarrera = new EstudianteCarrera(estudianteFromDB,carreraFromDB);
-        //estudianteCarreraRepository.create(estudianteCarrera);
+        System.out.println("-------EJ 2B--------");
+        Career careerFromDB = careerRepository.getCareerByName("Tudai");
+        Student studentFromDB = studentRepository.findByStudentNumber(10005);
+        StudentCareer studentCareer2B = new StudentCareer(studentFromDB, careerFromDB);
+        studentCareerRepository.create(studentCareer2B);
 
         // 2 - c
-        Estudiante estudiante2 = new Estudiante("Jose", "Perez", "Tandil", 50, 'M', 123456789, 123466);
-        //estudianteRepository.create(estudiante2);
-        Estudiante estudiante3 = new Estudiante("Clemente", "Rodriguez", "Tandil", 43, 'X', 123456789, 123656);
-        //estudianteRepository.create(estudiante3);
         System.out.println("-------EJ 2C--------");
-        List<Estudiante> estudianteList = estudianteRepository.getAllSortedByParam("edad","desc");
-        estudianteList.forEach(System.out::println);
+        List<Student> studentListEJ2C = studentRepository.getAllSortedByParam("age","desc");
+        studentListEJ2C.forEach(System.out::println);
 
         // 2 - d
         System.out.println("-------EJ 2D--------");
-        Estudiante estudianteEJ2D = estudianteRepository.findByLibreta(123456);
-        System.out.println(estudianteEJ2D);
+        Student studentEJ2D = studentRepository.findByStudentNumber(10005);
+        System.out.println(studentEJ2D);
 
         // 2 - e
         System.out.println("-------EJ 2E--------");
-        List<Estudiante> estudianteListByGenre = estudianteRepository.getAllEstudiantesByGenre('X');
-        estudianteListByGenre.forEach(System.out::println);
+        List<Student> studentsListEJ2E = studentRepository.getStudentsByGender('M');
+        studentsListEJ2E.forEach(System.out::println);
 
         // 2 - f
         System.out.println("-------EJ 2F--------");
-        List<CarreraConInscriptosDTO> carrera_inscriptos = carreraRepository.getCarrerasConInscriptos();
-        carrera_inscriptos.forEach(System.out::println);
+        List<CareerWithEnrolledStudentsDTO> careerWithEnrolledStudentsDTOListEJ2F = careerRepository.getCareerWithEnrolledStudents();
+        careerWithEnrolledStudentsDTOListEJ2F.forEach(System.out::println);
 
         //2 - g
         System.out.println("-------EJ 2G--------");
-        List<Estudiante> estudiantesListByCarrerAndCiudad = estudianteRepository.getEstudiantesByCarreraAndCiudad("TUDAI","Tandil");
-        estudiantesListByCarrerAndCiudad.forEach(System.out::println);
+        List<Student> studentsListEJ2G = studentRepository.getStudentsByCareerAndCity("TUDAI","Tandil");
+        studentsListEJ2G.forEach(System.out::println);
 
         //3
         System.out.println("-------EJ 3---------");
-        List<ReportDTO> reporte = carreraRepository.getInforme();
-        reporte.forEach(System.out::println);
+        List<ReportDTO> reportsEJ3 = careerRepository.getReports();
+        reportsEJ3.forEach(System.out::println);
 
     }
 }
