@@ -7,11 +7,22 @@ import entities.Career;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 public class CareerRepository extends BaseJPARepository<Career> {
-    public CareerRepository(EntityManagerFactory emf) {
+    private static CareerRepository instance;
+
+    private CareerRepository(EntityManagerFactory emf) {
         super(emf, Career.class);
+
+    }
+
+    public static CareerRepository getInstance(EntityManagerFactory emf){
+        if (instance == null){
+            instance = new CareerRepository(emf);
+        }
+        return instance;
     }
 
     public Career getCareerByName(String name) {
@@ -19,7 +30,6 @@ public class CareerRepository extends BaseJPARepository<Career> {
                 .setParameter("name", name)
                 .getSingleResult();
     }
-
     public List<CareerWithEnrolledStudentsDTO> getCareerWithEnrolledStudents() {
         return super.getEntityManager().createQuery(
                 "SELECT new DTO.CareerWithEnrolledStudentsDTO(c.idCareer, c.name, COUNT(ec)) " +
@@ -66,6 +76,4 @@ public class CareerRepository extends BaseJPARepository<Career> {
 
         return reports;
     }
-
-
 }
