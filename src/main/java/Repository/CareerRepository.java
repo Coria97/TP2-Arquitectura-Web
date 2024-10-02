@@ -10,8 +10,6 @@ import java.util.List;
 import javax.persistence.EntityManagerFactory;
 
 public class CareerRepository extends BaseJPARepository<Career> {
-    private EntityManagerFactory emf;
-
     public CareerRepository(EntityManagerFactory emf) {
         super(emf, Career.class);
     }
@@ -21,6 +19,7 @@ public class CareerRepository extends BaseJPARepository<Career> {
                 .setParameter("name", name)
                 .getSingleResult();
     }
+
     public List<CareerWithEnrolledStudentsDTO> getCareerWithEnrolledStudents() {
         return super.getEntityManager().createQuery(
                 "SELECT new DTO.CareerWithEnrolledStudentsDTO(c.idCareer, c.name, COUNT(ec)) " +
