@@ -6,8 +6,16 @@ import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
 public class StudentRepository extends BaseJPARepository<Student> {
-    public StudentRepository(EntityManagerFactory emf){
+    private static StudentRepository instance;
+    private StudentRepository(EntityManagerFactory emf){
         super(emf, Student.class);
+    }
+
+    public static StudentRepository getInstance(EntityManagerFactory emf){
+        if (instance == null){
+            instance = new StudentRepository(emf);
+        }
+        return instance;
     }
 
     public Student findByStudentNumber(Integer stundetNumber) {

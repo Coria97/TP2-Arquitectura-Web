@@ -13,7 +13,8 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        FactoryRepository dbManager = new MySQLFactory();
+        FactoryRepository dbManager = FactoryRepository.getFactory(1);
+
 
         StudentRepository studentRepository = dbManager.getStudentRepository();
         StudentCareerRepository studentCareerRepository = dbManager.getStudentCareerRepository();

@@ -7,14 +7,25 @@ import entities.Career;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 public class CareerRepository extends BaseJPARepository<Career> {
     private EntityManagerFactory emf;
+    private static CareerRepository instance;
 
-    public CareerRepository(EntityManagerFactory emf) {
+    private CareerRepository(EntityManagerFactory emf) {
         super(emf, Career.class);
+
     }
+
+    public static CareerRepository getInstance(EntityManagerFactory emf){
+        if (instance == null){
+            instance = new CareerRepository(emf);
+        }
+        return instance;
+    }
+
 
     public Career getCareerByName(String name) {
         return super.getEntityManager().createQuery("SELECT c FROM Career c WHERE c.name = :name", Career.class)

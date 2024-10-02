@@ -4,6 +4,7 @@ import entities.StudentCareer;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import java.sql.Connection;
 import java.util.List;
 
 public class BaseJPARepository<T> implements GenericRepository<T> {

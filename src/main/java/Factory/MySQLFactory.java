@@ -9,22 +9,37 @@ import javax.persistence.Persistence;
 
 public class MySQLFactory extends FactoryRepository{
 
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("tp2-integrador");
+    private EntityManagerFactory emf;
 
-    public MySQLFactory(){}
+    private static MySQLFactory instance;
+
+
+
+    private MySQLFactory() {
+        this.emf = Persistence.createEntityManagerFactory("tp2-integrador");
+    }
+
 
     @Override
     public CareerRepository getCareerRepository() {
-        return new CareerRepository(emf);
+        return CareerRepository.getInstance(emf);
     }
 
     @Override
     public StudentRepository getStudentRepository() {
-        return new StudentRepository(emf);
+        return StudentRepository.getInstance(emf);
     }
 
     @Override
     public StudentCareerRepository getStudentCareerRepository() {
-        return new StudentCareerRepository(emf);
+        return StudentCareerRepository.getInstance(emf);
+    }
+
+    public static MySQLFactory getInstance() {
+        if (instance == null) {
+            instance = new MySQLFactory();
+        }
+        return instance;
     }
 }
+
