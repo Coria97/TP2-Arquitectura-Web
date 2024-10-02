@@ -9,7 +9,7 @@ datos con JPA y realizar consultas a esta base por medio del entity manager y ut
 ![DiagramaDER.png](DiagramaDER.png)
 
 ## Diagrama de clases
-![DiagramaDER.png](DiagramaDER.png)
+![DiagramaDeClases.png](DiagramaDeClases.png)
 
 ## Tecnologías Utilizadas
 
